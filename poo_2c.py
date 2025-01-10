@@ -1,22 +1,52 @@
 class personaje:
     #Atributos de la clase
-    nombre = "Default"
-    fuerza = 0
-    inteligencia = 0
-    defensa = 0
-    vida = 0
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida):
+        self.nombre = nombre
+        self.fuerza = fuerza
+        self.inteligencia = inteligencia
+        self.defensa = defensa
+        self.vida = vida
+    #¿Qué es self (En Python)? Es una referencia al mismo objeto
+    #¿Qué es el metodo init (En python)? Constructor que inicializa atributos de un objeto
+    #¿Porque se usa doble __ (En python)? Dunder. Porque es metodo magico 
+    #¿Cuando  se ejecuta el metodo init? Autom. al crear una nueva 
+    
+    #Una nueva instancia
+    def imprimir_atributos(self):
+        print(self.nombre)
+        print("-Fuerza", self.fuerza)
+        print("-Inteligencia", self.inteligencia)
+        print("-Defensa", self.defensa)
+        print("-Vida", self.vida)
+        
+    def subir_nivel(self, fuerza, inteligencia, defensa):
+        self.fuerza = self.fuerza + fuerza
+        self.inteligencia = self.inteligencia + inteligencia
+        self.defensa = self.defensa + defensa
+        
+    def esta_vivo(self):
+        return self.vida > 0
+    
+    def morir(self):
+        self.vida = 0
+        print(self.nombre, "ha muerto")
+        
+    def dañar(self, enemigo):
+        return self.fuerza - enemigo.defensa
+    
+    def atacar(self, enemigo):
+        daño = self.dañar(enemigo)
+        enemigo.vida =enemigo.vida - daño
+        print(self.nombre, "ha realizado", daño, "puntos de daño a", enemigo.nombre)
+        print("Vida de" , enemigo.nombre, "es", enemigo.vida)
+    
 #Variable del constructor vacío
-mi_personaje = personaje()
-#Modificando valores de los atributos
-mi_personaje.nombre = "EstebanDido"
-mi_personaje.fuerza = 300
-mi_personaje.inteligencia = -2
-mi_personaje.defensa = 30
-mi_personaje.vida = 2
-
-
-print("EL nombre de mi personaje es: ",mi_personaje.nombre)
-print("EL nombre de mi personaje es: ",mi_personaje.fuerza)
-print("EL nombre de mi personaje es: ",mi_personaje.inteligencia)
-print("EL nombre de mi personaje es: ",mi_personaje.defensa)
-print("EL nombre de mi personaje es: ",mi_personaje.vida)
+mi_personaje = personaje("EsteBandido", 100, 50, 45, 100 )
+mi_enemigo = personaje("Angel", 70, 100, 40, 100)
+mi_personaje.imprimir_atributos()
+mi_personaje.atacar(mi_enemigo)
+#print(mi_personaje.esta_vivo())
+#mi_personaje.morir()
+# mi_personaje.subir_nivel(15,5,10)
+# print("Valores actaulizados")
+# mi_personaje.imprimir_atributos()
