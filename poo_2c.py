@@ -5,7 +5,7 @@ class Personaje:
     # inteligencia = 0
     # defensa = 0
     # vida = 0
-    def _init_(self, nombre, fuerza, inteligencia, defensa, vida):
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida):
         self.__nombre = nombre
         self.__fuerza = fuerza
         self.inteligencia = inteligencia
@@ -27,9 +27,9 @@ class Personaje:
         print("-Vida:",self.__vida)
     
     def subir_nivel(self,fuerza, inteligencia, defensa):
-        self._fuerza = self._fuerza + fuerza
+        self.__fuerza = self.__fuerza + fuerza
         self.inteligencia = self.inteligencia + inteligencia
-        self._defensa = self._defensa + defensa
+        self.__defensa = self.__defensa + defensa
     
     def esta_vivo(self):        
         return self.__vida > 0
@@ -39,7 +39,7 @@ class Personaje:
         print(self.__nombre,"ha muerto")
         
     def dañar(self, enemigo):
-        return self._fuerza - enemigo._defensa
+        return self.__fuerza - enemigo.__defensa
     
     def atacar(self,enemigo):
         daño = self.dañar(enemigo)
@@ -48,25 +48,31 @@ class Personaje:
         if enemigo.__vida - daño < 0:
             enemigo.__vida
         else:
-            enemigo._vida = enemigo._vida - daño
-        print(self._nombre,"ha realizado",daño,"puntos de daño a", enemigo._nombre)
-        print("Vida de",enemigo._nombre,"es",enemigo._vida)
+            enemigo.__vida = enemigo.__vida - daño
+        print(self.__nombre,"ha realizado",daño,"puntos de daño a", enemigo.__nombre)
+        print("Vida de",enemigo.__nombre,"es",enemigo.__vida)
     
     def get_vida(self):
         return self.__vida
     
     def set_vida(self, vida):
-        self.__vida = vida    
-        if self.__vida < 0:
-            self.__vida = 0
+        self.__vida = vida  
+        if self.__vida <= 0 :
             self.morir()
             
+        
+        
+           
 #Variable del constructor 
 mi_personaje = Personaje("EsteBandido", 100, 50, 45, 100)
-mi_enemigo = Personaje("Ángel", 70, 100, 70, 100)
+mi_enemigo = Personaje("Ángel",70,100,70,100)
 print(mi_personaje.get_vida())
-mi_personaje._personaje__vida = -50
+mi_personaje.set_vida(-5)
+print(mi_personaje.get_vida())
+mi_personaje._Personaje__vida = -50
 mi_personaje.imprimir_atributos()
+
+
 #mi_personaje.imprimir_atributos()
 #mi_personaje.atacar(mi_enemigo)
 # mi_personaje.morir()
