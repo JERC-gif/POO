@@ -32,7 +32,7 @@ class personaje:
         print(self.nombre, "ha muerto")
         
     def dañar(self, enemigo):
-        return self.fuerza - enemigo.defensa
+        return max (0, self.fuerza - enemigo.defensa)
     
     def atacar(self, enemigo):
         daño = self.dañar(enemigo)
@@ -44,12 +44,101 @@ class Guerrero (personaje):
     def __init__(self, nombre, fuerza, inteligencia, defensa, vida, espada):
         super().__init__(nombre, fuerza, inteligencia, defensa, vida)
         self.espada = espada
+    
+    #sobreescribir el constructor
+    def imprimir_atributos(self):
+        super().imprimir_atributos()
+        print("Espada:", self.espada)
         
+    #Sobreescribir el calculo del año
+    def dañar(self, enemigo):
+        return self.fuerza*self.espada - enemigo.defensa
+    
+    #Escoger Navaja
+    def escoger_navaja(self):
+        opcion = int(input ("Escoge la navaja de la muerte:\n(1) Navaja Suiza, daño 10.\n(2)Navaja pioja, daño 6.\n>>>>>>"))
+        if (opcion == 2):
+            self.espada = 10
+        elif (opcion == 1):
+            self.espada = 6
+        else:
+            print("Valor invalido, intenta nuevamente")
+            self.escoger_navaja()
+            
 
+class Mago(personaje):    
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+        self.libro = libro
+    
+    #sobreescribir el constructor
+    def imprimir_atributos(self):
+        super().imprimir_atributos()
+        print("Libro:", self.libro)
+        
+    #Sobreescribir el calculo del año
+    def dañar(self, enemigo):
+        return self.inteligencia*self.libro - enemigo.defensa
+    
+    #Escoger Libro
+    def escoger_libro(self):
+        opcion = int(input ("Escoge el libro de la sabiduria:\n(1) El principito, daño 10.\n(2) Crepesculo, daño -10.\n>>>>>>"))
+        if (opcion == 2):
+            self.libro = 10
+        elif (opcion == 1):
+            self.libro = 6
+        else:
+            print("Valor invalido, intenta nuevamente")
+            self.escoger_libro()
+        
+        
 arturoSuarez = Guerrero("Arturo Súarez", 12, 3000, 2, 100, .5)
-arturoSuarez.imprimir_atributos()
-print("El valor de espada es: ", arturoSuarez.espada)
 
+class Guerrero (personaje):    
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, espada):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+        self.espada = espada
+    
+    #sobreescribir el constructor
+    def imprimir_atributos(self):
+        super().imprimir_atributos()
+        print("Espada:", self.espada)
+        
+    #Sobreescribir el calculo del año
+    def dañar(self, enemigo):
+        return self.fuerza*self.espada - enemigo.defensa
+    
+    #Escoger Navaja
+    def escoger_navaja(self):
+        opcion = int(input ("Escoge la navaja de la muerte:\n(1) Navaja Suiza, daño 10.\n(2)Navaja pioja, daño 6.\n>>>>>>"))
+        if (opcion == 2):
+            self.espada = 10
+        elif (opcion == 1):
+            self.espada = 6
+        else:
+            print("Valor invalido, intenta nuevamente")
+            self.escoger_navaja()
+            
+persona = personaje("Angel Suarez", 20, 15, 2, 100)           
+gandalf = Mago("Gandalf", 10, 100, 2, 100)
+arturoSuarez = Guerrero("Arturo Súarez", 12, 3000, 2, 100)2
+
+#Ataques antes de la tragedia
+persona.imprimir_atributos()
+gandalf.imprimir_libro ()
+arturoSuarez.imprimir_atributos
+
+#Ataques sin piedad
+persona.atacar(arturoSuarez)
+arturoSuarez.atacar(gandalf)
+gandalf.atacar(persona)
+
+#Atributos despues de la tragedia
+persona.imprimir_atributos()
+gandalf.imprimir_libro ()
+arturoSuarez.imprimir_atributos
+
+#print("El valor de espada es: ", arturoSuarez.espada)
 
 
 #Variable del constructor vacío
